@@ -25,7 +25,7 @@ html.mob .sq-tbl{max-height:calc(100vh / var(--mz,.8) - 150px)}
 html.mob .sq3d{height:min(calc(100vh / var(--mz,.8) - 230px),420px)}
 
 /* матч: поле целиком помещается на экран */
-html.mob .m2d-p{max-width:calc((100vh / var(--mz,.8) - 150px) * 2.12);scroll-margin-top:92px;padding:6px}
+html.mob .m2d-p{max-width:calc((100vh / var(--mz,.8) - 100px) * 1.54);scroll-margin-top:92px;padding:6px}
 html.mob .m2d-leg{font-size:12px}
 
 /* окна */
@@ -34,6 +34,71 @@ html.mob #modal{padding-block:8px;align-items:flex-start}
 /* пальцем удобнее: кнопки чуть крупнее по высоте */
 html.mob .btn.sm{min-height:30px}
 html.mob .t tr.click:hover td{background:transparent}
+
+/* ---------- главное меню: на телефоне своя раскладка вместо ужатой сцены 1672×941 ---------- */
+html.mob .hs-photo{height:100vh;height:100dvh;overflow-y:auto;place-items:start center}
+html.mob .stage{zoom:1;width:100vw;height:100vh;height:100dvh;min-height:350px;background-position:center;background-size:cover;
+  --pl:max(16px,env(safe-area-inset-left,0px));--pr:max(16px,env(safe-area-inset-right,0px))}
+html.mob .stage .hs-top{height:52px;padding:0 var(--pr) 0 var(--pl);gap:12px}
+html.mob .stage .hs-logo{font-size:30px}
+html.mob .hs-sub,html.mob .stage .hs-foot{display:none}
+html.mob .stage .hs-nav{position:static;margin-left:auto}
+html.mob .hs-nav{padding:3px}
+html.mob .hs-nav button{padding:7px 13px;font-size:13px}
+html.mob .stage .hs-user,html.mob .hs-user>div{display:none}
+html.mob .hs-user{padding-left:4px}
+html.mob .hs-user .ua{width:32px;height:32px}
+html.mob .stage .hs-menu{left:var(--pl);top:58px;width:min(56vw,400px);gap:6px}
+html.mob .stage .hs-menu .hm,html.mob .stage .hs-menu.nos .hm{width:100%;height:46px;margin:0;padding:0 12px;gap:12px;border-radius:10px}
+html.mob .stage .hs-menu:not(.nos) .hm{height:40px}
+html.mob .stage .hs-menu .hm.big{width:100%;height:58px;padding:0 14px;margin:0 0 2px}
+html.mob .stage .hs-menu .ic{width:26px;height:26px}
+html.mob .stage .hs-menu .ic svg{width:24px;height:24px}
+html.mob .hm b{font-size:15px}
+html.mob .hm small{font-size:11.5px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html.mob .hm.big b{font-size:19px}
+html.mob .hm.big small{font-size:12px}
+html.mob .hm.big .crest{width:44px;height:44px}
+html.mob .hm .ch{font-size:22px}
+html.mob .hm:hover,html.mob .hm:focus-visible{transform:none}
+html.mob .stage .hs-side{left:auto;right:var(--pr);top:58px;width:min(36vw,300px)}
+html.mob .stage .hs-side .gcard:first-child{height:auto}
+html.mob .stage .hs-side .news2{display:none}
+html.mob .gcard{padding:12px 14px;border-radius:12px}
+html.mob .gcard h4{font-size:14px;margin-bottom:8px}
+html.mob .gcard p{font-size:12.5px;line-height:1.4;margin:0}
+html.mob .cc2{gap:10px;padding-bottom:10px}
+html.mob .cc2 .crest{width:44px;height:44px}
+html.mob .cc2 b{font-size:14px}html.mob .cc2 small{font-size:12px}
+html.mob .cc2 .lgl{display:none}
+html.mob .cst{margin-top:10px}
+html.mob .cst div{padding:0 8px}
+html.mob .cst b{font-size:20px}
+html.mob .cst small{font-size:10.5px}
+
+/* ---------- экраны меню (новая карьера, загрузка, настройки): шапка в одну строку ---------- */
+html.mob .hs-sub-screen .hs-top{flex-wrap:nowrap;padding:6px max(16px,env(safe-area-inset-right,0px)) 6px max(16px,env(safe-area-inset-left,0px));gap:10px}
+html.mob .hs-sub-screen .hs-logo{font-size:26px}
+html.mob .hs-sub-screen .hs-nav{order:0;width:auto;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+html.mob .hs-sub-screen .hs-user{margin-left:0}
+html.mob .hs-sub-screen .hs-inner{zoom:var(--mz,.8)}
+html.mob .hs-sub-screen .hs-foot{display:none}
+
+/* ---------- в игре: шапка клуба прячется при прокрутке вниз ---------- */
+html.mob .top{transition:transform .25s ease}
+html.mob .tabsbar,html.mob .proc{transition:top .25s ease}
+html.mob.hdr-off .top{transform:translateY(-110%)}
+html.mob.hdr-off .tabsbar{top:env(safe-area-inset-top,0px)}
+html.mob.hdr-off .proc{top:calc(env(safe-area-inset-top,0px) + 40px)}
+
+/* подсказка для Safari на iPhone: «На экран Домой» */
+#a2hs{position:fixed;z-index:9000;left:50%;bottom:max(10px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(620px,calc(100vw - 32px));box-sizing:border-box;
+  display:flex;align-items:center;gap:14px;padding:10px 12px 10px 16px;border-radius:12px;font-family:'IBM Plex Sans',sans-serif;color:var(--fg,#ecf4ee);
+  background:rgba(10,22,15,.94);border:1px solid rgba(63,226,107,.55);box-shadow:0 8px 30px rgba(0,0,0,.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);animation:fadeUp .4s ease-out}
+#a2hs .a2-tx{flex:1;min-width:0;font-size:12.5px;line-height:1.35;color:#c9d6cd}
+#a2hs b{display:block;font-size:14px;color:#fff;margin-bottom:2px}
+#a2hs svg{vertical-align:-4px;color:var(--accent,#3fe26b)}
+#a2hs .btn{flex:none}
 
 /* вертикальный экран — просим повернуть телефон */
 #rot{display:none}
