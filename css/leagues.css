@@ -1,0 +1,72 @@
+/* ===== KICK 2: оформление карьеры в цветах лиги ===== */
+html[data-lt]{--acc-rgb:63,226,107;--btn-hi:#58f082;--btn-lo:#27c454;--tint:34,58,43;--deep:10,19,14;--hue:0deg}
+html[data-lt="eng"]{--accent:#b48cff;--accent-ink:#14062a;--acc-rgb:167,123,255;--btn-hi:#c7a6ff;--btn-lo:#8f5cf0;--tint:52,30,92;--deep:13,7,26;--line:rgba(167,123,255,.2);--bg:#0c0618;--hue:125deg}
+html[data-lt="ger"]{--accent:#ff3b3b;--accent-ink:#1a0303;--acc-rgb:227,30,36;--btn-hi:#ff4a4a;--btn-lo:#cf1020;--tint:46,30,32;--deep:12,10,11;--line:rgba(255,80,80,.18);--bg:#0b0a0b;--hue:235deg}
+html[data-lt="esp"]{--accent:#ff4136;--accent-ink:#1a0402;--acc-rgb:238,52,40;--btn-hi:#ff5145;--btn-lo:#d01d14;--tint:48,26,24;--deep:14,9,9;--line:rgba(255,90,70,.18);--bg:#0e0808;--hue:240deg}
+html[data-lt="ita"]{--accent:#3d9bff;--accent-ink:#03101f;--acc-rgb:45,140,255;--btn-hi:#4ee07c;--btn-lo:#1fae4c;--tint:20,40,78;--deep:6,12,26;--line:rgba(80,150,255,.2);--bg:#060d1d;--hue:95deg}
+html[data-lt="rus"]{--accent:#3d8bff;--accent-ink:#03101f;--acc-rgb:43,124,255;--btn-hi:#4c9bff;--btn-lo:#1d6be6;--tint:22,38,80;--deep:7,12,28;--line:rgba(80,140,255,.2);--bg:#070d1f;--hue:100deg}
+html[data-lt="fra"]{--accent:#35ec88;--accent-ink:#02160b;--acc-rgb:46,232,122;--btn-hi:#4ff59a;--btn-lo:#16c063;--tint:18,62,48;--deep:4,20,15;--line:rgba(60,235,140,.2);--bg:#04140f;--hue:25deg}
+html[data-lt]{background:var(--bg)}
+/* фото стадиона перекрашивается в цвет лиги */
+html[data-lt] body::after{background:linear-gradient(rgba(var(--deep),.8),rgba(var(--deep),.9)),url(../img/menu_bg.jpg) center/cover;filter:hue-rotate(var(--hue)) saturate(1.15)}
+/* своя фоновая картинка лиги: img/leagues/<eng|ger|ita|esp|fra|rus>.jpg — ложится поверх стадиона */
+html[data-lt] #app::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(rgba(var(--deep),.05),rgba(var(--deep),.2)),var(--lt-bg) center/cover no-repeat}
+html[data-lt="eng"]{--lt-bg:url(../img/leagues/eng.jpg);--lt-feat:url(../img/leagues/eng_feat.jpg)}html[data-lt="ger"]{--lt-bg:url(../img/leagues/ger.jpg);--lt-feat:url(../img/leagues/ger_feat.jpg)}
+html[data-lt="ita"]{--lt-bg:url(../img/leagues/ita.jpg);--lt-feat:url(../img/leagues/ita_feat.jpg)}html[data-lt="esp"]{--lt-bg:url(../img/leagues/esp.jpg);--lt-feat:url(../img/leagues/esp_feat.jpg)}
+html[data-lt="fra"]{--lt-bg:url(../img/leagues/fra.jpg);--lt-feat:url(../img/leagues/fra_feat.jpg)}html[data-lt="rus"]{--lt-bg:url(../img/leagues/rus.jpg);--lt-feat:url(../img/leagues/rus_feat.jpg)}
+/* фон с макета уже содержит полосы, флаги и стадион — свои декоративные слои убираем */
+html[data-lt] body::before,html[data-lt] #app::after{display:none}
+/* старый слой со стадионом уходит под картинку лиги (иначе он рисуется поверх — он позже в разметке) */
+html[data-lt] body::after{z-index:-2}
+/* главная новость: картинка с макета (Колизей, Эйфелева башня, стадион) */
+html[data-lt] main .feat{background:linear-gradient(90deg,rgba(var(--deep),.96) 0%,rgba(var(--deep),.8) 36%,rgba(var(--deep),.1) 62%,rgba(var(--deep),.25) 100%),var(--lt-feat) center/cover no-repeat,rgba(var(--deep),1)}
+html[data-lt] main .feat .feat-art{background:none}
+/* световые полосы и флаги */
+html[data-lt] body::before{content:"";position:fixed;inset:0;height:auto;z-index:-1;pointer-events:none;
+  background:linear-gradient(118deg,transparent 0 62%,rgba(var(--acc-rgb),.16) 62% 64%,transparent 64% 80%,rgba(var(--acc-rgb),.28) 80% 80.6%,transparent 80.6%),
+             linear-gradient(118deg,transparent 0 8%,rgba(var(--acc-rgb),.1) 8% 12%,transparent 12%)}
+html[data-lt="ita"] body::before{background:linear-gradient(118deg,transparent 0 33%,rgba(0,146,70,.55) 33% 35%,rgba(240,240,240,.5) 35% 37%,rgba(206,43,55,.55) 37% 39%,transparent 39%) top/100% 34% no-repeat,
+  linear-gradient(118deg,transparent 0 70%,rgba(0,146,70,.35) 70% 71.5%,rgba(240,240,240,.3) 71.5% 73%,rgba(206,43,55,.35) 73% 74.5%,transparent 74.5%) bottom/100% 40% no-repeat,linear-gradient(118deg,transparent 0 80%,rgba(var(--acc-rgb),.2) 80% 81%,transparent 81%)}
+html[data-lt="esp"] body::before{background:linear-gradient(28deg,rgba(198,11,30,.5) 0 6%,rgba(255,196,0,.45) 6% 12%,rgba(198,11,30,.5) 12% 15%,transparent 15%) bottom left/60% 50% no-repeat,
+  linear-gradient(118deg,transparent 0 76%,rgba(var(--acc-rgb),.3) 76% 77%,transparent 77% 88%,rgba(var(--acc-rgb),.18) 88% 91%,transparent 91%)}
+html[data-lt="rus"] body::before{background:linear-gradient(118deg,transparent 0 60%,rgba(220,40,50,.3) 60% 61.2%,transparent 61.2% 64%,rgba(var(--acc-rgb),.3) 64% 65%,transparent 65% 84%,rgba(220,40,50,.2) 84% 86%,transparent 86%)}
+html[data-lt="fra"] body::before{background:linear-gradient(118deg,transparent 0 72%,rgba(0,85,164,.3) 72% 74%,rgba(240,240,240,.22) 74% 76%,rgba(239,65,53,.3) 76% 78%,transparent 78%) top/100% 45% no-repeat,linear-gradient(118deg,transparent 0 8%,rgba(var(--acc-rgb),.14) 8% 12%,transparent 12%)}
+html[data-lt="ger"] body::before,html[data-lt="eng"] body::before{background:linear-gradient(118deg,transparent 0 58%,rgba(var(--acc-rgb),.24) 58% 60%,transparent 60% 74%,rgba(var(--acc-rgb),.38) 74% 74.6%,transparent 74.6% 86%,rgba(var(--acc-rgb),.16) 86% 90%,transparent 90%),linear-gradient(118deg,transparent 0 6%,rgba(var(--acc-rgb),.16) 6% 10%,transparent 10%)}
+/* большой полупрозрачный логотип лиги в углу */
+html[data-lt] #app::after{content:"";position:fixed;right:-40px;bottom:-40px;width:min(40vw,520px);aspect-ratio:1;background:var(--lt-logo) center/contain no-repeat;opacity:.06;pointer-events:none;z-index:-1;filter:grayscale(.3)}
+/* элементы в цвете лиги */
+html[data-lt] .panel,html[data-lt] .feat,html[data-lt] .ncard,html[data-lt] .cc,html[data-lt] .scard,html[data-lt] .pk-card,html[data-lt] .pk-table{background:linear-gradient(160deg,rgba(var(--tint),.6),rgba(var(--deep),.8));border-color:var(--line)}
+html[data-lt] .mbox{background:linear-gradient(160deg,rgba(var(--tint),.95),rgba(var(--deep),.97))}
+html[data-lt] .top{background:rgba(var(--deep),.94)}html[data-lt] .tabsbar{background:rgba(var(--deep),.92)}
+html[data-lt] .btn.pri{background:linear-gradient(180deg,var(--btn-hi),var(--btn-lo));border-color:var(--btn-hi);color:#fff;box-shadow:0 0 18px rgba(var(--acc-rgb),.3)}
+html[data-lt="ita"] .btn.pri,html[data-lt="fra"] .btn.pri{color:#04140a}
+html[data-lt] .btn:hover{border-color:rgba(var(--acc-rgb),.6);background:rgba(var(--acc-rgb),.08)}
+html[data-lt] .btn.on{box-shadow:0 0 0 1px rgba(var(--acc-rgb),.55),0 0 22px rgba(var(--acc-rgb),.28)}
+html[data-lt] .gind{background:linear-gradient(180deg,rgba(var(--acc-rgb),.24),rgba(var(--acc-rgb),.05));box-shadow:inset 0 0 0 1.5px rgba(var(--acc-rgb),.85),inset 0 1px 0 rgba(255,255,255,.22),0 0 18px rgba(var(--acc-rgb),.35)}
+html[data-lt] .subtabs button.on{background:rgba(var(--acc-rgb),.14)}
+html[data-lt] .badge{background:var(--accent);color:var(--accent-ink)}
+html[data-lt] .t tr.click:hover td{background:rgba(var(--acc-rgb),.08)}html[data-lt] .t tr.me td{background:rgba(var(--acc-rgb),.13)}
+html[data-lt] .htalk{border-color:rgba(var(--acc-rgb),.6);box-shadow:0 0 0 1px rgba(var(--acc-rgb),.5),0 0 22px rgba(var(--acc-rgb),.25)}
+html[data-lt] .csel:focus-visible,html[data-lt] .csel.open{box-shadow:0 0 0 1px rgba(var(--acc-rgb),.5),0 0 16px rgba(var(--acc-rgb),.22)}
+html[data-lt] .csel-pop{border-color:rgba(var(--acc-rgb),.45);background:linear-gradient(160deg,rgba(var(--tint),.98),rgba(var(--deep),.98))}
+html[data-lt] .co.act{background:rgba(var(--acc-rgb),.16)}
+html[data-lt] ::-webkit-scrollbar-thumb{background:rgba(var(--acc-rgb),.3);background-clip:padding-box}
+html[data-lt] .kind{color:var(--accent)}
+html[data-lt] .feat{position:relative}
+/* детали как на макетах */
+html[data-lt] .top .cont::after{content:" ›";font-weight:700}
+html[data-lt] .nm-vs{color:var(--accent);font-family:var(--font-d);font-size:20px}
+.nm-go{width:100%;margin-top:12px;padding:11px;font-size:15px}
+.feat-art{position:relative}
+.feat-badge{position:absolute;right:14px;bottom:12px;width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.92);box-shadow:0 6px 20px rgba(0,0,0,.45),0 0 0 3px rgba(var(--acc-rgb,63,226,107),.6);z-index:2}
+.feat-art:has(.feat-badge) .feat-crests{display:none}
+.feat-badge .crest,.feat-badge img{width:56px!important;height:56px!important;object-fit:contain}
+.subtabs .lt-ico{width:20px;height:20px;object-fit:contain;margin-right:7px;vertical-align:-5px;flex:none}
+/* логотип АПЛ тёмно-фиолетовый — делаем его светлым, чтобы читался на тёмном фоне */
+.lt-ico[src*="L_eng1"]{filter:brightness(0) invert(1)}
+.lt-mark img[src*="L_eng1"]{filter:brightness(0) invert(1) drop-shadow(0 0 14px rgba(180,140,255,.75)) drop-shadow(0 4px 12px rgba(0,0,0,.5))!important}
+html[data-lt] .feat-cap{background:rgba(var(--deep),.85);border:1px solid var(--line);border-radius:999px;padding:6px 14px}
+html[data-lt] .feat-cap::after{content:" ›";color:var(--accent)}
+/* логотип лиги над правой колонкой главной */
+.lt-mark{display:flex;justify-content:flex-end;align-items:center;margin:-4px 0 -6px;min-height:96px}
+.lt-mark img,.lt-mark .crest{width:auto!important;height:104px!important;object-fit:contain;filter:drop-shadow(0 6px 18px rgba(var(--acc-rgb),.35))}

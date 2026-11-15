@@ -1,0 +1,49 @@
+/* ===== KICK 2: телефон, только горизонтально ===== */
+/* весь интерфейс игры чуть уменьшается под высоту экрана телефона (главное меню масштабируется само) */
+html.mob{-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;touch-action:manipulation}
+html.mob body{overscroll-behavior:none;-webkit-user-select:none;user-select:none}
+html.mob input,html.mob textarea{-webkit-user-select:text;user-select:text}
+html.mob #app>:not(.hs),html.mob .mbox,html.mob #toast,html.mob .cs-pop{zoom:var(--mz,.8)}
+
+/* шапка и вкладки — компактные */
+html.mob .top{padding-block:4px;gap:10px;min-height:0}
+html.mob .top .club img,html.mob .top .club .crest{width:30px!important;height:30px!important}
+html.mob .top .club b{font-size:16px}
+html.mob .top .club small{font-size:11px}
+html.mob .top .cont{padding:7px 16px}
+html.mob .menu-btn{width:32px;height:32px}
+html.mob .tabsbar{top:calc(env(safe-area-inset-top,0px) + 45px);padding-block:3px}
+html.mob .tabsbar button{padding:6px 12px}
+html.mob .proc{top:calc(env(safe-area-inset-top,0px) + 85px)}
+html.mob main{padding-block:12px 36px;gap:12px}
+html.mob .head h1{font-size:24px}
+html.mob .sq{grid-template-columns:minmax(0,1.2fr) minmax(250px,.8fr)!important}
+html.mob .sq-right{position:sticky!important;top:96px}
+html.mob .sq-tbl .sq-ph,html.mob .sq-tbl th:nth-child(3){display:none}
+html.mob .sq-card{padding:10px 12px}
+html.mob .sq-tbl{max-height:calc(100vh / var(--mz,.8) - 150px)}
+html.mob .sq3d{height:min(calc(100vh / var(--mz,.8) - 230px),420px)}
+
+/* матч: поле целиком помещается на экран */
+html.mob .m2d-p{max-width:calc((100vh / var(--mz,.8) - 150px) * 2.12);scroll-margin-top:92px;padding:6px}
+html.mob .m2d-leg{font-size:12px}
+
+/* окна */
+html.mob #modal{padding-block:8px;align-items:flex-start}
+
+/* пальцем удобнее: кнопки чуть крупнее по высоте */
+html.mob .btn.sm{min-height:30px}
+html.mob .t tr.click:hover td{background:transparent}
+
+/* вертикальный экран — просим повернуть телефон */
+#rot{display:none}
+@media (orientation:portrait) and (pointer:coarse) and (max-width:900px){
+  #rot{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;align-content:center;gap:18px;text-align:center;padding:24px;
+    background:radial-gradient(70% 50% at 50% 40%,rgba(63,226,107,.18),transparent 70%),#050a07;color:var(--fg,#ecf4ee);font-family:'IBM Plex Sans',sans-serif}
+  #rot .ph{width:64px;height:110px;border:3px solid var(--accent,#3fe26b);border-radius:12px;position:relative;animation:rotph 2.2s ease-in-out infinite}
+  #rot .ph::after{content:"";position:absolute;left:50%;bottom:6px;width:16px;height:3px;margin-left:-8px;border-radius:2px;background:var(--accent,#3fe26b)}
+  #rot b{font-size:20px}
+  #rot small{color:var(--mute,#93a99b);font-size:14px;max-width:280px}
+  #app,#modal,#toast{visibility:hidden}
+}
+@keyframes rotph{0%,20%{transform:rotate(0)}55%,80%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
