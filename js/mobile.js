@@ -27,6 +27,21 @@ mobCheck();addEventListener('resize',mobCheck);addEventListener('orientationchan
 // на телефоне 3D рисуется в меньшем разрешении — плавнее и меньше греет телефон
 if(MOB.on){const real=window.devicePixelRatio||1;try{Object.defineProperty(window,'devicePixelRatio',{get:()=>Math.min(1.5,real),configurable:true});}catch(e){}}
 
+// матч на телефоне: на быстрой скорости игра перерисовывает весь экран каждые 70 мс — это и тормозит анимацию поля.
+// Пока матч идёт сам, обновляем текст не чаще ~4–5 раз в секунду (последнее обновление никогда не теряется). Клики по кнопкам — сразу.
+(function(){const _renderThr=render;let last=0,tm=null,tap=0;
+  addEventListener('pointerdown',()=>{tap=performance.now();},{capture:true,passive:true});
+  render=function(){
+    const now=performance.now();
+    const live=MOB.on&&typeof M!=='undefined'&&M&&M.run&&!M.done&&UI.view==='match'&&now-tap>400;
+    if(live&&now-last<220){if(!tm)tm=setTimeout(()=>{tm=null;last=performance.now();_renderThr();},220-(now-last));return;}
+    if(tm){clearTimeout(tm);tm=null;}last=now;_renderThr();
+  };})();
+
+// 3D-повторы на телефоне: тени попроще и меньшего размера — заметно плавнее, разница на маленьком экране почти не видна
+if(MOB.on&&typeof h3Init==='function'){const _h3InitM=h3Init;h3Init=function(){const fresh=!H3.r;const ok=_h3InitM.apply(this,arguments);
+  if(ok&&fresh&&H3.r){H3.r.shadowMap.type=THREE.PCFShadowMap;if(H3.key&&H3.key.shadow)H3.key.shadow.mapSize.set(1024,1024);}return ok;};}
+
 // первое касание: полный экран и фиксация горизонтальной ориентации (Android)
 function mobFull(){
   if(!MOB.on||MOB.fs)return;MOB.fs=true;const el=document.documentElement;

@@ -37,7 +37,16 @@ html.mob .t tr.click:hover td{background:transparent}
 
 /* ---------- главное меню: на телефоне своя раскладка вместо ужатой сцены 1672×941 ---------- */
 html.mob .hs-photo{height:100vh;height:100dvh;overflow-y:auto;place-items:start center}
-html.mob .stage{zoom:1;width:100vw;height:100vh;height:100dvh;min-height:350px;background-position:center;background-size:cover;
+html.mob .hs-photo::before{display:none}
+/* в фоновой картинке нарисованы «стеклянные» подложки под кнопки компьютерной раскладки — на телефоне они вылезают мутными пятнами.
+   Показываем только чистую середину картинки (стадион и мяч) справа, слева — ровный тёмный фон под кнопками */
+html.mob .stage{zoom:1;width:100vw;height:100vh;height:100dvh;min-height:350px;
+  background:linear-gradient(90deg,#050a07 0,rgba(5,10,7,.97) 52%,rgba(5,10,7,.6) 61%,rgba(5,10,7,0) 68%),
+    linear-gradient(118deg,transparent 0 2%,rgba(63,226,107,.45) 2% 2.5%,transparent 2.5% 5%,rgba(63,226,107,.18) 5% 7%,transparent 7%),
+    url(../img/menu_bg.jpg) 15.4vw calc(100vh - 55.2vw)/115.4vw auto no-repeat,#050a07;
+  background:linear-gradient(90deg,#050a07 0,rgba(5,10,7,.97) 52%,rgba(5,10,7,.6) 61%,rgba(5,10,7,0) 68%),
+    linear-gradient(118deg,transparent 0 2%,rgba(63,226,107,.45) 2% 2.5%,transparent 2.5% 5%,rgba(63,226,107,.18) 5% 7%,transparent 7%),
+    url(../img/menu_bg.jpg) 15.4vw calc(max(100dvh,350px) - 55.2vw)/115.4vw auto no-repeat,#050a07;
   --pl:max(16px,env(safe-area-inset-left,0px));--pr:max(16px,env(safe-area-inset-right,0px))}
 html.mob .stage .hs-top{height:52px;padding:0 var(--pr) 0 var(--pl);gap:12px}
 html.mob .stage .hs-logo{font-size:30px}
@@ -75,6 +84,24 @@ html.mob .cst{margin-top:10px}
 html.mob .cst div{padding:0 8px}
 html.mob .cst b{font-size:20px}
 html.mob .cst small{font-size:10.5px}
+
+/* ---------- чётко и плавно: на телефоне без «матового стекла» ----------
+   backdrop-filter на iPhone даёт мутные пятна (особенно во время анимаций) и сильно грузит видеочип —
+   вместо размытия панели просто плотнее */
+html.mob *,html.mob *::before,html.mob *::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html.mob .hm{background:linear-gradient(100deg,rgba(30,40,35,.93),rgba(14,20,17,.9))}
+html.mob .hm.big{background:linear-gradient(100deg,rgba(28,92,50,.95),rgba(16,50,30,.94) 55%,rgba(10,26,17,.93))}
+html.mob .gcard{background:linear-gradient(160deg,rgba(30,42,36,.94),rgba(10,17,13,.93))}
+html.mob .hs-nav{background:rgba(8,16,11,.9)}
+html.mob .mi{background:rgba(22,31,41,.96)}
+html.mob .pk-foot{background:rgba(15,21,28,.98)}
+html.mob #a2hs{background:rgba(10,22,15,.98)}
+/* появление кнопок меню: только прозрачность, без сдвига — меньше перерисовок */
+html.mob .stage .hs-menu>*,html.mob .stage .gcard{animation:none}
+html.mob .hm::after{display:none}
+/* в карьере слой стадиона с цветовым фильтром целиком закрыт картинкой лиги — не рисуем его зря */
+html.mob[data-lt] body::after{display:none}
+html.mob[data-lt] #app::after{filter:none}
 
 /* ---------- экраны меню (новая карьера, загрузка, настройки): шапка в одну строку ---------- */
 html.mob .hs-sub-screen .hs-top{flex-wrap:nowrap;padding:6px max(16px,env(safe-area-inset-right,0px)) 6px max(16px,env(safe-area-inset-left,0px));gap:10px}
